@@ -23,31 +23,6 @@ TaskFlow is a simple full-stack task management application built to demonstrate
 
 ---
 
-## 📂 Project Structure
-
-taskflow-fullstack/
-├── backend/
-│   └── TaskFlow.Api/
-│       ├── Controllers/
-│       ├── Models/
-│       ├── DTOs/
-│       ├── Repositories/
-│       ├── Program.cs
-│       └── TaskFlow.Api.csproj
-│
-├── frontend/
-│   └── taskflow-web/
-│       ├── src/
-│       ├── public/
-│       ├── index.html
-│       ├── package.json
-│       └── vite.config.js
-│
-├── README.md
-└── .gitignore
-
----
-
 ## ⚙️ How to Run the Project Locally
 
 ### Backend (ASP.NET Core)
