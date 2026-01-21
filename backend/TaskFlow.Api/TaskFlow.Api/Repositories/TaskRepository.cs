@@ -1,4 +1,5 @@
-﻿using TaskFlow.Api.Models;
+﻿using TaskFlow.Api.Exceptions;
+using TaskFlow.Api.Models;
 
 namespace TaskFlow.Api.Repositories
 {
@@ -11,6 +12,9 @@ namespace TaskFlow.Api.Repositories
 
         public TaskItem Add(string title)
         {
+            if (_tasks.Any(t => t.Title.Equals(title, StringComparison.OrdinalIgnoreCase)))
+                throw new DuplicateTaskException(title);
+
             var task = new TaskItem { Title = title };
             _tasks.Add(task);
             return task;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TaskFlow.Api.DTOs;
+using TaskFlow.Api.Exceptions;
 using TaskFlow.Api.Repositories;
 
 namespace TaskFlow.Api.Controllers
@@ -21,7 +22,18 @@ namespace TaskFlow.Api.Controllers
 
         [HttpPost]
         public IActionResult Create(CreateTaskDto dto)
-            => Ok(_repository.Add(dto.Title));
+        {
+            try
+            {
+                var task = _repository.Add(dto.Title);
+
+                return CreatedAtAction(nameof(GetAll), task);
+            }
+            catch (DuplicateTaskException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
+        }
 
         [HttpPut("{id}/toggle")]
         public IActionResult Toggle(Guid id)
@@ -37,5 +49,6 @@ namespace TaskFlow.Api.Controllers
             return NoContent();
         }
     }
+
 }
 
