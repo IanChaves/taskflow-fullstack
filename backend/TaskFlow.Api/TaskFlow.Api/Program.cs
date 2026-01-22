@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using TaskFlow.Api.Data;
 using TaskFlow.Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();
@@ -21,6 +23,11 @@ builder.Services.AddCors(options =>
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
+});
+
+builder.Services.AddDbContext<TaskFlowDbContext>(options =>
+{
+    options.UseSqlite("Data Source=taskflow.db");
 });
 
 var app = builder.Build();
