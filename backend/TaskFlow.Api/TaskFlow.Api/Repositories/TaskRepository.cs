@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskFlow.Api.Data;
+using TaskFlow.Api.DTOs;
 using TaskFlow.Api.Exceptions;
 using TaskFlow.Api.Models;
 
@@ -14,8 +15,18 @@ namespace TaskFlow.Api.Repositories
             _context = context;
         }
 
-        public IEnumerable<TaskItem> GetAll()
-            => _context.Tasks.AsNoTracking().ToList();
+        public IEnumerable<TaskDto> GetAll()
+        {
+            return _context.Tasks
+                .AsNoTracking()
+                .Select(t => new TaskDto
+                {
+                    Id = t.Id,
+                    Title = t.Title,
+                    IsCompleted = t.IsCompleted
+                })
+                .ToList();
+        }
 
         public TaskItem Add(string title)
         {
