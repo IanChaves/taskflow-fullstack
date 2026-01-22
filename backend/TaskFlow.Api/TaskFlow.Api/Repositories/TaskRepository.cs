@@ -1,4 +1,5 @@
-﻿using TaskFlow.Api.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskFlow.Api.Data;
 using TaskFlow.Api.Exceptions;
 using TaskFlow.Api.Models;
 
